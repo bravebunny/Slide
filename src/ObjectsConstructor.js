@@ -1,56 +1,45 @@
-ObjectsConstructor = function(g) {
-	game = g;
-};
+/* global Phaser */
+var ObjectsConstructor = function (game, level) {
+  this.game = game
+  this.lvl = level
+}
 
 ObjectsConstructor.prototype = {
 
-	preload: function() {
-        game.load.image('yellow', 'assets/sprites/yellow.png'); // loading the tileset image
-        game.load.image('blue', 'assets/sprites/blue.png');
-        game.load.image('lightGreen', 'assets/sprites/lightGreen.png');
-        game.load.image('red', 'assets/sprites/red.png');
-        game.load.image('door', 'assets/sprites/door.png');
-        game.load.image('lock', 'assets/sprites/lock.png');
-        game.load.image('playerWithHat', 'assets/sprites/playerWithHat.png');
-	},
+  createLock: function (x, y) {
+    this.lvl.lock.push(this.lvl.add.sprite(x, y, 'lock'))
+    this.lvl.physics.arcade.enable(this.lvl.lock[this.lvl.lockIndex])
+    this.lvl.lock[this.lvl.lockIndex].anchor.setTo(0.5, 0.5)
+    this.lvl.lock[this.lvl.lockIndex].body.setSize(16, 16, 0, 0)
+    this.lvl.add.tween(this.lvl.lock[this.lvl.lockIndex]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 100, 1000, true)
+    this.lvl.lockIndex ++
+  },
 
-	createLock: function(x,y) {
-        levelTutorial.lock.push(game.add.sprite(x, y, 'lock'));
-        game.physics.arcade.enable(levelTutorial.lock[levelTutorial.lockIndex]);
-        levelTutorial.lock[levelTutorial.lockIndex].anchor.setTo(.5,.5);
-        levelTutorial.lock[levelTutorial.lockIndex].body.setSize(16, 16, 0, 0);
-        game.add.tween(levelTutorial.lock[levelTutorial.lockIndex]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 100, 1000, true);
-        levelTutorial.lockIndex ++;
-    },
+  createDoor: function (x, y) {
+    this.lvl.door.push(this.lvl.add.sprite(x, y, 'door'))
+    this.lvl.physics.arcade.enable(this.lvl.door[this.lvl.doorIndex])
+    this.lvl.door[this.lvl.doorIndex].anchor.setTo(0.5, 0.5)
+    this.lvl.door[this.lvl.doorIndex].body.immovable = true
+    this.lvl.door[this.lvl.doorIndex].body.moves = false
+    this.lvl.doorIndex ++
+  },
 
-    createDoor: function(x,y) {
-        levelTutorial.door.push(game.add.sprite(x, y, 'door'));
-        game.physics.arcade.enable(levelTutorial.door[levelTutorial.doorIndex]);
-        levelTutorial.door[levelTutorial.doorIndex].anchor.setTo(.5,.5);
-        levelTutorial.door[levelTutorial.doorIndex].body.immovable = true;
-        levelTutorial.door[levelTutorial.doorIndex].body.moves = false;
-        levelTutorial.doorIndex ++;
-    },
+  createRectangle: function (x, y, width, height) {
+    this.lvl.rectangle.push(this.lvl.add.graphics(0, 0))
+    this.lvl.rectangle[this.lvl.rectangleIndex].beginFill(0x363636)
+    this.lvl.rectangle[this.lvl.rectangleIndex].drawRect(x, y, width, height)
+    this.lvl.rectangleIndex ++
+  },
 
-    createRectangle: function(x,y,width,height){
-        levelTutorial.rectangle.push(game.add.graphics(0, 0));
-        levelTutorial.rectangle[levelTutorial.rectangleIndex].beginFill(0x363636);
-        levelTutorial.rectangle[levelTutorial.rectangleIndex].drawRect(x, y, width, height);
-        levelTutorial.rectangleIndex ++;
-    },
+  createObject: function (x, y, color) {
+    this.lvl.objectP.push(this.lvl.add.sprite(x, y, color))
+    this.lvl.physics.arcade.enable(this.lvl.objectP[this.lvl.objectIndex])
+    this.lvl.objectP[this.lvl.objectIndex].anchor.setTo(0.5, 0.5)
+    this.lvl.objectP[this.lvl.objectIndex].body.setSize(16, 16, 0, 0)
+    this.lvl.add.tween(this.lvl.objectP[this.lvl.objectIndex]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 100, 1000, true)
+    this.lvl.objectP.push(color)
+    this.lvl.objectIndex += 2
+  },
 
-    createObject: function(x,y,color){
-        levelTutorial.objectP.push(game.add.sprite(x, y, color));
-        game.physics.arcade.enable(levelTutorial.objectP[levelTutorial.objectIndex]);
-        levelTutorial.objectP[levelTutorial.objectIndex].anchor.setTo(.5,.5);
-        levelTutorial.objectP[levelTutorial.objectIndex].body.setSize(16, 16, 0, 0);
-        game.add.tween(levelTutorial.objectP[levelTutorial.objectIndex]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 100, 1000, true);
-        levelTutorial.objectP.push(color);
-        levelTutorial.objectIndex +=2;
-    },
-
-    render: function() {
-        
-    }
-	
-};
+  render: function () {}
+}
