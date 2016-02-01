@@ -5,7 +5,7 @@ var TextWriter = function (game, level, player) {
   this.game = game
 
   // /////TEXT///// //
-  this.textVelocity = 2.0 // higher the value slower the text
+  this.textVelocity = 1.7 // higher the value slower the text
   this.tweenText = null
   this.textLine = 1
   this.eraseTutorial = false
@@ -18,7 +18,11 @@ TextWriter.prototype = {
     this.lvl.text = this.game.add.text(x, y, text, {font: '' + size + 'pt Fixedsys', fill: '#363636', align: 'center'})
     this.lvl.text.alpha = 0
     this.lvl.text.anchor.setTo(0.5, 0.5)
-    this.tweenText = this.game.add.tween(this.lvl.text).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, delay * this.lvl.textVelocity)
+    if (this.textLine === 1)
+      this.tweenText = this.game.add.tween(this.lvl.text).to({y: 670}, 300 * this.textVelocity, Phaser.Easing.Out, true, delay * this.lvl.textVelocity)
+    else {
+      this.tweenText = this.game.add.tween(this.lvl.text).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, delay * this.lvl.textVelocity)
+    }
     this.tweenText = this.game.add.tween(this.lvl.text).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, delay * this.lvl.textVelocity)
     this.textLine += 1
     this.tweenText.onComplete.add(this.lvl.textSequence, this.lvl)
@@ -50,7 +54,7 @@ TextWriter.prototype = {
   eraseText: function (delay, changeY) {
     if (this.tweenText) {
       if (changeY) {
-        this.tweenText = this.game.add.tween(this.lvl.text).to({ alpha: 0 }, 1600 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * delay * this.lvl.textVelocity)
+        this.tweenText = this.game.add.tween(this.lvl.text).to({ alpha: 0 }, 2000 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * delay * this.lvl.textVelocity)
         this.tweenText = this.game.add.tween(this.lvl.text).to({ y: 712 }, 800 * this.textVelocity, Phaser.Easing.Linear.None, true, delay * this.lvl.textVelocity)
       }
 			else {

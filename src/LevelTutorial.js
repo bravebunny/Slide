@@ -9,11 +9,13 @@ var levelTutorial = function (game) {
   this.textWriter = null
 
   // /////OBJECTS/////////
-  this.hat = null
   this.rectangle = []
   this.lock = []
   this.door = []
   this.objectP = []
+
+  this.hat = null
+  this.whisky = null
   // ////////////////////
 }
 
@@ -41,9 +43,10 @@ levelTutorial.prototype = {
     this.houseMap.setCollisionByExclusion([], true, this.layer[1])
     this.houseMap.setCollisionByExclusion([], true, this.layer[2])
 
-    this.objConstructor.createObject(172, 476, 'yellow') // hat 0
-    this.objConstructor.createObject(476, 108, 'red') // coffee 1
-    this.objConstructor.createObject(60, 244, 'blue') // bag 2
+    this.objConstructor.createObject(172, 476, 'yellow', 'hat') // hat 0
+    this.objConstructor.createObject(476, 108, 'red', 'coffee') // coffee 1
+    this.objConstructor.createObject(60, 244, 'blue', 'bag') // bag 2
+    this.objConstructor.createObject(284, 300, 'yellow', 'whisky') // whisky 3
 
     this.objConstructor.createDoor(240, 432) // doorRoom
     this.objConstructor.createLock(232, 444) // doorRoom
@@ -70,6 +73,9 @@ levelTutorial.prototype = {
     }
     else if (specific === 'bag') {
       this.textWriter.printSecondaryText('Suitcase', 10, 0)
+    }
+    else if (specific === 'whisky') {
+      this.textWriter.printSecondaryText('Whisky', 10, 0)
     }
     else {
       if (this.textWriter.textLine === 1) {
@@ -135,19 +141,23 @@ levelTutorial.prototype = {
     for (var k = 0; k < this.objectP.length; k += 2) {
       if (this.game.physics.arcade.overlap(player, this.objectP[k])) {
         this.objectP[k].destroy()
-        if (this.objectP[k + 1] ==='yellow') {
+        var object = this.objectP[k + 1]
+        if (object === 'hat') {
           player.loadTexture('playerWithHat')
-          this.textSequence('hat')
+          this.textSequence(object)
         }
-        else if (this.objectP[k + 1] ==='blue') {
+        else if (object === 'bag') {
           this.houseQuest ++
-          this.textSequence('bag')
+          this.textSequence(object)
           player.playerVelocity -= 50
         }
-        else if (this.objectP[k + 1] ==='red') {
+        else if (object === 'coffee') {
           this.houseQuest ++
-          this.textSequence('coffee')
+          this.textSequence(object)
           player.playerVelocity += 100
+        }
+        else if (object === 'whisky') {
+          this.textSequence(object)
         }
       }
     }
