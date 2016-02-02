@@ -28,15 +28,13 @@ Player.prototype = {
 
       if (this.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
         this.moveLeft()
-      }
-      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+      } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
         this.moveRight()
       }
 
       if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
         this.moveUp()
-      }
-      else if (this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
+      } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
         this.moveDown()
       }
 

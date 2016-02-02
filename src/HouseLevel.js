@@ -105,7 +105,7 @@ houseLevel.prototype = {
           this.textWriter.addText('Now... coffee and my bag')
           this.textWriter.eraseTutorial = true
           this.textWriter.printTutorial()
-          this.textSequence()
+          this.textWriter.printHistory()
         } else if (this.lock[j].name === 'sarah') {
           this.textWriter.addText("Sarah's room... it's locked")
           this.textWriter.printHistory()

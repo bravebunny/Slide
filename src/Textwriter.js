@@ -20,6 +20,7 @@ var TextWriter = function (game, level, player) {
 
   this.nextTextLine = false
   this.numberOfLines = 0
+  this.printing = false
 }
 
 TextWriter.prototype = {
@@ -34,25 +35,23 @@ TextWriter.prototype = {
   },
 
   printHistory: function () {
-    if (this.numberOfLines === this.textArray.length) {
-      this.numberOfLines = 0
-      this.game.add.tween(this.textArray[0]).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, 500 * this.textVelocity)
-      this.tween = this.game.add.tween(this.textArray[0]).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, 500 * this.textVelocity)
-    } else {
+    if (!this.printing) {
+      this.printing = true
       this.game.add.tween(this.textArray[0]).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, this.delay * this.textVelocity)
       this.tween = this.game.add.tween(this.textArray[0]).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
-    }
-    this.tween.onComplete.add(function () {
-      if (this.textArray.length !== 1) {
+      this.tween.onComplete.add(function () {
         this.game.add.tween(this.textArray[0]).to({ alpha: 0 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * this.delay * this.textVelocity)
         this.game.add.tween(this.textArray[0]).to({ y: 712 }, 800 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
-        this.textArray.shift()
-        this.printHistory()
-      } else {
-        this.game.add.tween(this.textArray[0]).to({ alpha: 0 }, 700 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * this.delay * this.textVelocity)
-        this.textArray = []
-      }
-    }, this)
+        if (this.textArray.length !== 1) {
+          this.textArray.shift()
+          this.printing = false
+          this.printHistory()
+        } else {
+          this.printing = false
+          this.textArray = []
+        }
+      }, this)
+    }
   },
 
   printSecondaryText: function (text) {
