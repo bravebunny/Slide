@@ -61,63 +61,29 @@ levelTutorial.prototype = {
 
     this.player.create()
 
+    this.textWriter.addText('...')
+    this.textWriter.addText('I am late...')
+    this.textWriter.addText('Better drink some coffee and get to work')
+
     this.textSequence()
+    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 9000)
   },
 
-  textSequence: function (specific) { // historyPage = 1
+  textSequence: function (specific) {
     if (specific === 'hat') {
-      this.textWriter.printSecondaryText('Hat', 10, 0)
+      this.textWriter.printSecondaryText('Hat')
     }
     else if (specific === 'coffee') {
-      this.textWriter.printSecondaryText('Coffee', 10, 0)
+      this.textWriter.printSecondaryText('Coffee')
     }
     else if (specific === 'bag') {
-      this.textWriter.printSecondaryText('Suitcase', 10, 0)
+      this.textWriter.printSecondaryText('Suitcase')
     }
     else if (specific === 'whisky') {
-      this.textWriter.printSecondaryText('Whisky', 10, 0)
+      this.textWriter.printSecondaryText('Whisky')
     }
     else {
-      if (this.textWriter.textLine === 1) {
-        this.textWriter.printHistory('...', 320, 628, 24, 100, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 2) {
-        this.textWriter.eraseText(1000, true) // delay for erase and true for change y
-        this.textWriter.printHistory('I am late...', 320, 628, 24, 1000, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 3) {
-        this.textWriter.eraseText(1000, true)
-        this.textWriter.printHistory('Better drink some coffee and get to work', 320, 628, 24, 1000, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 4) {
-        this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 1000, levelTutorial)
-        this.textWriter.eraseText(1000, false)
-        this.textWriter.textLine += 1
-        this.game.time.events.add(Phaser.Timer.SECOND * 2, function () { this.player.playerCanMove = true }, this)
-      }
-      else if (this.textWriter.textLine === 5) {
-        this.textWriter.eraseTutorial = true
-        this.textWriter.printTutorial()
-        this.textWriter.printHistory('I have to find time to clean this house...', 320, 628, 24, 1, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 6) {
-        this.textWriter.eraseText(1000, true)
-        this.textWriter.printHistory('Now... coffee and my suitcase', 320, 628, 24, 1000, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 7) {
-        this.textWriter.eraseText(1000, false)
-        this.textWriter.textLine += 1
-      }
-      else if (this.textWriter.textLine === 8) {
-        this.textWriter.printHistory('...', 320, 628, 24, 1, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 9) {
-        this.textWriter.eraseText(1000, true)
-        this.textWriter.printHistory('Lets go', 320, 628, 24, 1000, levelTutorial)
-      }
-      else if (this.textWriter.textLine === 10) {
-        this.textWriter.eraseText(1000, false)
-      }
+      this.textWriter.printHistory()
     }
   },
 
@@ -131,6 +97,10 @@ levelTutorial.prototype = {
             this.game.add.tween(this.rectangle[i]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0) // black rectangle
           }
           this.game.add.tween(this.textWriter.tutorialText).to({ y: -10 }, 1000, Phaser.Easing.Linear.None, true, 1000)
+          this.textWriter.addText('I have to find time to clean this house...')
+          this.textWriter.addText('Now... coffee and my suitcase')
+          this.textWriter.eraseTutorial = true
+          this.textWriter.printTutorial()
           this.textSequence()
         }
         else if (this.door[j] === this.door[1]) {
@@ -167,6 +137,8 @@ levelTutorial.prototype = {
     this.player.update()
     if (this.houseQuest === 2) {
       this.houseQuest = 0
+      this.textWriter.addText('...')
+      this.textWriter.addText('Lets go')
       this.textSequence()
       this.objConstructor.createLock(296, 92) // doorBathroom
     }
