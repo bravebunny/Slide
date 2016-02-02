@@ -1,8 +1,8 @@
 /* global Phaser, Player, ObjectsConstructor, TextWriter*/
-var levelTutorial = function (game) {
+var houseLevel = function (game) {
   this.houseMap = null
   this.layer = null
-  this.houseQuest = 0
+  this.quest = 0
 
   this.player = null
   this.objConstructor = null
@@ -19,7 +19,7 @@ var levelTutorial = function (game) {
   // ////////////////////
 }
 
-levelTutorial.prototype = {
+houseLevel.prototype = {
 
   create: function () {
     this.player = new Player(this.game, this)
@@ -43,15 +43,18 @@ levelTutorial.prototype = {
     this.houseMap.setCollisionByExclusion([], true, this.layer[1])
     this.houseMap.setCollisionByExclusion([], true, this.layer[2])
 
-    this.objConstructor.createObject(5, 14, 0, 'yellow', 'hat') // hat 0
-    this.objConstructor.createObject(14, 3, 1, 'red', 'coffee') // coffee 1
-    this.objConstructor.createObject(1, 7, 1, 'blue', 'bag') // bag 2
-    this.objConstructor.createObject(8, 9, 1, 'yellow', 'whisky') // whisky 3
+    this.objConstructor.createObject(5, 14, 0, 'yellow', 'hat') // hat
+    this.objConstructor.createObject(5, 17, 2, 'red', 'photo') // photo
+    this.objConstructor.createObject(14, 3, 1, 'red', 'coffee') // coffee
+    this.objConstructor.createObject(1, 7, 1, 'blue', 'bag') // bag
+    this.objConstructor.createObject(8, 9, 1, 'yellow', 'whisky') // whisky
 
     this.objConstructor.createDoor(7, 13) // doorRoom
     this.objConstructor.createLock(7, 13, 0, 'room') // doorRoom
     this.objConstructor.createDoor(3, 5) // doorBathroom
     this.objConstructor.createLock(3, 5, 1) // doorBathroom
+    this.objConstructor.createDoor(3, 12) // doorSarah
+    this.objConstructor.createLock(3, 12, 1, 'sarah') // doorSarah
     this.objConstructor.createDoor(9, 2) // out
 
     this.objConstructor.createRectangle(0, 64, 96, 224) // smalRect 0
@@ -61,21 +64,28 @@ levelTutorial.prototype = {
 
     this.player.create()
 
-    this.textWriter.addText('...')
-    this.textWriter.addText('I am late...')
-    this.textWriter.addText('Better drink some coffee and get to work')
+    this.textWriter.addText('What a stange dream')
+    this.textWriter.addText("5:32 am.. let's take a walk")
+    this.textWriter.addText('Better drink my coffee and get my bag first')
     this.textSequence()
 
-    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 9000)
+    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 7000)
+
+    this.game.time.events.add(Phaser.Timer.SECOND * 7, function () { this.player.playerCanMove = true }, this)
   },
 
   textSequence: function (specific) {
     if (specific === 'hat') {
       this.textWriter.printSecondaryText('Hat')
+    } else if (specific === 'photo') {
+      this.textWriter.printSecondaryText('Photo')
+      this.textWriter.addText('A photo of my wife, Maggie')
+      this.textWriter.addText('and my daughter, Sarah')
+      this.textWriter.printHistory()
     } else if (specific === 'coffee') {
       this.textWriter.printSecondaryText('Coffee')
     } else if (specific === 'bag') {
-      this.textWriter.printSecondaryText('Suitcase')
+      this.textWriter.printSecondaryText('Bag')
     } else if (specific === 'whisky') {
       this.textWriter.printSecondaryText('Whisky')
     } else {
@@ -92,15 +102,18 @@ levelTutorial.prototype = {
           }
           this.game.add.tween(this.textWriter.tutorialText).to({ y: -10 }, 1000, Phaser.Easing.Linear.None, true, 1000)
           this.textWriter.addText('I have to find time to clean this house...')
-          this.textWriter.addText('Now... coffee and my suitcase')
+          this.textWriter.addText('Now... coffee and my bag')
           this.textWriter.eraseTutorial = true
           this.textWriter.printTutorial()
           this.textSequence()
+        } else if (this.lock[j].name === 'sarah') {
+          this.textWriter.addText("Sarah's room... it's locked")
+          this.textWriter.printHistory()
         } else if (this.door[j] === this.door[1]) {
           this.game.add.tween(this.rectangle[0]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0)
         }
         this.lock[j].destroy()
-        this.door[j].destroy()
+        if (this.lock[j].name !== 'sarah') this.door[j].destroy()
       }
     }
     for (var k = 0; k < this.objectP.length; k++) {
@@ -108,18 +121,14 @@ levelTutorial.prototype = {
         var object = this.objectP[k].name
         if (object === 'hat') {
           player.loadTexture('playerWithHat')
-          this.textSequence(object)
         } else if (object === 'bag') {
-          this.houseQuest ++
-          this.textSequence(object)
+          this.quest ++
           player.playerVelocity -= 50
         } else if (object === 'coffee') {
-          this.houseQuest ++
-          this.textSequence(object)
+          this.quest ++
           player.playerVelocity += 100
-        } else if (object === 'whisky') {
-          this.textSequence(object)
         }
+        this.textSequence(object)
         this.objectP[k].destroy()
       }
     }
@@ -127,8 +136,8 @@ levelTutorial.prototype = {
 
   update: function () {
     this.player.update()
-    if (this.houseQuest === 2) {
-      this.houseQuest = 0
+    if (this.quest === 2) {
+      this.quest = 0
       this.textWriter.addText('...')
       this.textWriter.addText('Lets go')
       this.textSequence()

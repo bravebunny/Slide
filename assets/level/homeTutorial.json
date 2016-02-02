@@ -5,6 +5,10 @@
          "height":24,
          "name":"background",
          "opacity":1,
+         "properties":
+            {
+             "Horizontal Offset":""
+            },
          "type":"tilelayer",
          "visible":true,
          "width":20,
@@ -33,6 +37,7 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":1,
  "orientation":"orthogonal",
  "properties":
     {
@@ -42,6 +47,7 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":5,
          "firstgid":1,
          "image":"Pastel.png",
          "imageheight":192,
@@ -53,6 +59,7 @@
 
             },
          "spacing":0,
+         "tilecount":30,
          "tileheight":32,
          "tilewidth":32
         }],
