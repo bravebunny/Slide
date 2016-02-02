@@ -12,11 +12,16 @@ var Player = function (game, level) {
 Player.prototype = {
 
   create: function () {
-    this.spriteMain = this.game.add.sprite(272, 560, 'spriteMain')
+    this.spriteMain = this.game.add.sprite(0, 0, 'spriteMain')
     this.game.physics.enable(this.spriteMain, Phaser.Physics.ARCADE)
     this.spriteMain.anchor.setTo(0.5, 0.5)
     this.spriteMain.body.collideWorldBounds = true
 	},
+
+  setPosition: function (x, y) {
+    this.spriteMain.x = (x + 1) * 32 - 16
+    this.spriteMain.y = (y + 1) * 32 - 16
+  },
 
   update: function () {
     if (this.playerCanMove) {

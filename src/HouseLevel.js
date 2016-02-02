@@ -63,6 +63,7 @@ houseLevel.prototype = {
     this.objConstructor.createRectangle(320, 416, 320, 32) // theOtherRect 3
 
     this.player.create()
+    this.player.setPosition(8, 17)
 
     this.textWriter.addText('What a stange dream')
     this.textWriter.addText("5:32 am.. let's take a walk")
@@ -109,6 +110,8 @@ houseLevel.prototype = {
         } else if (this.lock[j].name === 'sarah') {
           this.textWriter.addText("Sarah's room... it's locked")
           this.textWriter.printHistory()
+        } else if (this.lock[j].name === 'out') {
+          this.game.state.start('GardenLevel', true, false)
         } else if (this.door[j] === this.door[1]) {
           this.game.add.tween(this.rectangle[0]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0)
         }
@@ -141,7 +144,7 @@ houseLevel.prototype = {
       this.textWriter.addText('...')
       this.textWriter.addText('Lets go')
       this.textSequence()
-      this.objConstructor.createLock(9, 2, 0) // doorBathroom
+      this.objConstructor.createLock(9, 2, 0, 'out') // doorBathroom
     }
   },
 
