@@ -56,7 +56,7 @@ gardenLevel.prototype = {
     this.player.setPosition(14, 17)
     // this.player.playerCanMove = true
 
-    this.textWriter.addText('Hum... No birds singing today')
+    this.textWriter.addText('Hum... No birds singing today', 300)
     this.textWriter.addText('Maybe I can go get a rose for Maggie')
     this.textWriter.addText('But first i need my scissor')
     this.textWriter.printHistory()
@@ -70,7 +70,7 @@ gardenLevel.prototype = {
     } else if (specific === 'rose') {
       this.textWriter.printSecondaryText('Rose')
     } else if (specific === 'mud') {
-      this.textWriter.addText("The soil it's all tilled")
+      this.textWriter.addText("The soil it's all tilled", 100)
       this.textWriter.addText("Strange.. I don't remember digging here")
       this.textWriter.printHistory()
     } else {
@@ -108,7 +108,7 @@ gardenLevel.prototype = {
     this.player.update()
     if (this.quest === 1) {
       this.quest = 0
-      this.textWriter.addText('Lets move on')
+      this.textWriter.addText('Lets move on', 100)
       this.textSequence()
       this.objConstructor.createLock(10, 4, 0) // doorOut
     }

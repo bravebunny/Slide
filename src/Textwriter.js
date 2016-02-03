@@ -15,38 +15,43 @@ var TextWriter = function (game, level, player) {
   this.x = 320
   this.y = 628
   this.size = 24
-  this.textVelocity = 1.2 // higher the value slower the text
-  this.delay = 1000
+  this.textVelocity = 1.1 // higher the value slower the text
+  this.delay = 800
 
   this.nextTextLine = false
-  this.numberOfLines = 0
   this.printing = false
 }
 
 TextWriter.prototype = {
 
-  addText: function (text) {
+  addText: function (text, delay) {
     this.text = this.game.add.text(this.x, this.y, text, {font: '' + this.size + 'pt Fixedsys', fill: '#363636', align: 'center'})
     this.text.alpha = 0
     this.text.anchor.setTo(0.5, 0.5)
+    if (!this.printing) this.text.delay = delay
 
     this.textArray.push(this.text)
-    this.numberOfLines ++
   },
 
   printHistory: function () {
     if (!this.printing) {
       this.printing = true
-      this.game.add.tween(this.textArray[0]).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, this.delay * this.textVelocity)
-      this.tween = this.game.add.tween(this.textArray[0]).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
+      if (this.textArray[0].delay) {
+        this.game.add.tween(this.textArray[0]).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, this.textArray[0].delay * this.textVelocity)
+        this.tween = this.game.add.tween(this.textArray[0]).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, this.textArray[0].delay * this.textVelocity)
+      } else {
+        this.game.add.tween(this.textArray[0]).to({y: 670}, 700 * this.textVelocity, Phaser.Easing.Out, true, this.delay * this.textVelocity)
+        this.tween = this.game.add.tween(this.textArray[0]).to({ alpha: 1 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
+      }
       this.tween.onComplete.add(function () {
-        this.game.add.tween(this.textArray[0]).to({ alpha: 0 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * this.delay * this.textVelocity)
-        this.game.add.tween(this.textArray[0]).to({ y: 712 }, 800 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
+        this.game.add.tween(this.textArray[0]).to({ y: 712 }, 690 * this.textVelocity, Phaser.Easing.Linear.None, true, this.delay * this.textVelocity)
         if (this.textArray.length !== 1) {
+          this.game.add.tween(this.textArray[0]).to({ alpha: 0 }, 1000 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * this.delay * this.textVelocity)
           this.textArray.shift()
           this.printing = false
           this.printHistory()
         } else {
+          this.game.add.tween(this.textArray[0]).to({ alpha: 0 }, 800 * this.textVelocity, Phaser.Easing.Linear.None, true, 2.8 * this.delay * this.textVelocity)
           this.printing = false
           this.textArray = []
         }

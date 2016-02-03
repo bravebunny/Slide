@@ -65,14 +65,14 @@ houseLevel.prototype = {
     this.player.create()
     this.player.setPosition(8, 17)
 
-    this.textWriter.addText('What a stange dream')
+    this.textWriter.addText('What a stange dream', 300)
     this.textWriter.addText("5:32 am.. let's take a walk")
     this.textWriter.addText('Better drink my coffee and get my bag first')
     this.textSequence()
 
-    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 7000)
+    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 6000)
 
-    this.game.time.events.add(Phaser.Timer.SECOND * 7, function () { this.player.playerCanMove = true }, this)
+    this.game.time.events.add(Phaser.Timer.SECOND * 6, function () { this.player.playerCanMove = true }, this)
   },
 
   textSequence: function (specific) {
@@ -80,8 +80,8 @@ houseLevel.prototype = {
       this.textWriter.printSecondaryText('Hat')
     } else if (specific === 'photo') {
       this.textWriter.printSecondaryText('Photo')
-      this.textWriter.addText('A photo of my wife, Maggie')
-      this.textWriter.addText('and my daughter, Sarah')
+      this.textWriter.addText('A photo of my wife, Maggie', 100)
+      this.textWriter.addText('and my daughter, Sarah', 800)
       this.textWriter.printHistory()
     } else if (specific === 'coffee') {
       this.textWriter.printSecondaryText('Coffee')
@@ -102,13 +102,13 @@ houseLevel.prototype = {
             this.game.add.tween(this.rectangle[i]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0) // black rectangle
           }
           this.game.add.tween(this.textWriter.tutorialText).to({ y: -10 }, 1000, Phaser.Easing.Linear.None, true, 1000)
-          this.textWriter.addText('I have to find time to clean this house...')
+          this.textWriter.addText('I have to find time to clean this house...', 100)
           this.textWriter.addText('Now... coffee and my bag')
           this.textWriter.eraseTutorial = true
           this.textWriter.printTutorial()
           this.textWriter.printHistory()
         } else if (this.lock[j].name === 'sarah') {
-          this.textWriter.addText("Sarah's room... it's locked")
+          this.textWriter.addText("Sarah's room... it's locked", 100)
           this.textWriter.printHistory()
         } else if (this.lock[j].name === 'out') {
           this.game.state.start('GardenLevel', true, false)
@@ -141,7 +141,7 @@ houseLevel.prototype = {
     this.player.update()
     if (this.quest === 2) {
       this.quest = 0
-      this.textWriter.addText('...')
+      this.textWriter.addText('...', 100)
       this.textWriter.addText('Lets go')
       this.textSequence()
       this.objConstructor.createLock(9, 2, 0, 'out') // doorBathroom
