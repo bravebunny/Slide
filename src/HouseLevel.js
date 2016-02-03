@@ -27,8 +27,6 @@ houseLevel.prototype = {
     this.textWriter = new TextWriter(this.game, this, this.player)
 
     this.game.stage.backgroundColor = '#363636'
-    this.game.camera.view = new Phaser.Rectangle(0, 0, 600, 640)
-    this.game.world.setBounds(0, 0, 600, 640)
     this.game.physics.arcade.gravity.y = 0
 
     this.houseMap = this.game.add.tilemap('homeMap') // Preloaded tilemap
