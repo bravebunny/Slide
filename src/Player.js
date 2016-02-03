@@ -6,7 +6,7 @@ var Player = function (game, level) {
   this.playerMoving = false
   this.blocked = false
   this.playerVelocity = 200
-  this.playerCanMove = false
+  this.playerCanMove = true
 }
 
 Player.prototype = {

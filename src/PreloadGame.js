@@ -7,6 +7,7 @@ preloadGame.prototype = {
     this.game.load.image('Pastel', 'assets/level/Pastel.png') // loading the tileset image
     this.game.load.tilemap('homeMap', 'assets/level/homeTutorial.json', null, Phaser.Tilemap.TILED_JSON) // loading the tilemap file
     this.game.load.tilemap('gardenMap', 'assets/level/gardenLevel.json', null, Phaser.Tilemap.TILED_JSON)
+    this.game.load.tilemap('streetMap', 'assets/level/streetLevel.json', null, Phaser.Tilemap.TILED_JSON)
 
     this.game.load.image('yellow', 'assets/sprites/yellow.png') // loading the tileset image
     this.game.load.image('blue', 'assets/sprites/blue.png')

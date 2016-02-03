@@ -11,6 +11,7 @@ gameMananger.prototype = {
   },
 
   create: function () {
+  	/** /
     this.game.stage.backgroundColor = '#363636'
     var textChapter = this.game.add.text(320, 192, 'Chapter ' + this.chapterNumber, {font: '' + 60 + 'pt Fixedsys', fill: '#ffffff', align: 'center'})
     textChapter.anchor.setTo(0.5, 0.5)
@@ -33,7 +34,7 @@ gameMananger.prototype = {
     text.anchor.setTo(0.5, 0.5)
     text.alpha = 0
     this.game.add.tween(text).to({ alpha: 1 }, 4000, Phaser.Easing.Linear.None, true, 3000, 0, true)
-    /**/
+    
     this.game.time.events.add(Phaser.Timer.SECOND * 10, function () {
       switch (this.chapterNumber) {
         case 1:
@@ -44,8 +45,8 @@ gameMananger.prototype = {
           break
       }
     }, this)
-    /** /
-    this.game.state.start('GardenLevel', true, false)
+    /**/
+    this.game.state.start('StreetLevel', true, false)
     /**/
   }
 
