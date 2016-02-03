@@ -65,7 +65,7 @@ houseLevel.prototype = {
     this.player.create()
     this.player.setPosition(8, 17)
 
-    this.textWriter.addText('What a stange dream', 300)
+    this.textWriter.addText('What a stange dream')
     this.textWriter.addText("5:32 am.. let's take a walk")
     this.textWriter.addText('Better drink my coffee and get my bag first')
     this.textSequence()
@@ -111,7 +111,7 @@ houseLevel.prototype = {
           this.textWriter.addText("Sarah's room... it's locked", 100)
           this.textWriter.printHistory()
         } else if (this.lock[j].name === 'out') {
-          this.game.state.start('GardenLevel', true, false)
+          this.game.state.start('GameMananger', true, false, 2)
         } else if (this.door[j] === this.door[1]) {
           this.game.add.tween(this.rectangle[0]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0)
         }
