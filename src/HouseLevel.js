@@ -68,8 +68,6 @@ houseLevel.prototype = {
     this.textWriter.addText('Better drink my coffee and get my bag first')
     this.textSequence()
 
-    this.textWriter.printTutorial('Use WASD to slide and SPACE to interact', 320, 0, 24, 6000)
-
     this.game.time.events.add(Phaser.Timer.SECOND * 6, function () { this.player.playerCanMove = true }, this)
   },
 
@@ -77,7 +75,7 @@ houseLevel.prototype = {
     if (specific === 'hat') {
       this.textWriter.printSecondaryText('Hat')
     } else if (specific === 'photo') {
-      this.textWriter.printSecondaryText('Photo')
+      this.textWriter.printSecondaryText("Someone's photo")
       this.textWriter.addText('A photo of my wife, Maggie', 100)
       this.textWriter.addText('and my daughter, Sarah', 800)
       this.textWriter.printHistory()
@@ -99,13 +97,12 @@ houseLevel.prototype = {
           for (var i = 1; i <= 3; i++) {
             this.game.add.tween(this.rectangle[i]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0) // black rectangle
           }
-          this.game.add.tween(this.textWriter.tutorialText).to({ y: -10 }, 1000, Phaser.Easing.Linear.None, true, 1000)
+          this.game.add.tween(this.textWriter.tutorialText).to({ y: -10 }, 1000, Phaser.Easing.Linear.None, true, 500)
           this.textWriter.addText('I have to find time to clean this house...', 100)
           this.textWriter.addText('Now... coffee and my bag')
-          this.textWriter.eraseTutorial = true
-          this.textWriter.printTutorial()
           this.textWriter.printHistory()
         } else if (this.lock[j].name === 'sarah') {
+          this.textWriter.printSecondaryText('Ordinary room')
           this.textWriter.addText("Sarah's room... it's locked", 100)
           this.textWriter.printHistory()
         } else if (this.lock[j].name === 'out') {

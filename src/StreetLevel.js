@@ -90,7 +90,7 @@ streetLevel.prototype = {
             this.game.time.events.add(Phaser.Timer.SECOND * 1, function () { this.auxLocker = true }, this)
           }
         } else if (this.lock[j].name === 'out1') {
-          this.textWriter.addText('Bye', 100)
+          this.textWriter.addText('Bye...', 100)
           this.textWriter.printHistory()
         }
         if (this.lock[j].name === '2b' && localStorage.getItem('key') !== 'true') {
