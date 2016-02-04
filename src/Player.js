@@ -1,4 +1,4 @@
-/* global Phaser */
+/* global Phaser, localStorage */
 var Player = function (game, level) {
   this.game = game
   this.lvl = level
@@ -12,7 +12,8 @@ var Player = function (game, level) {
 Player.prototype = {
 
   create: function () {
-    this.spriteMain = this.game.add.sprite(0, 0, 'spriteMain')
+    if (localStorage.getItem('hat') === 'true') this.spriteMain = this.game.add.sprite(0, 0, 'playerWithHat')
+    else this.spriteMain = this.game.add.sprite(0, 0, 'spriteMain')
     this.game.physics.enable(this.spriteMain, Phaser.Physics.ARCADE)
     this.spriteMain.anchor.setTo(0.5, 0.5)
     this.spriteMain.body.collideWorldBounds = true

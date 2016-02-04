@@ -1,4 +1,4 @@
-/* global Phaser*/
+/* global Phaser, localStorage*/
 var preloadGame = function (game) {}
 
 preloadGame.prototype = {
@@ -21,6 +21,8 @@ preloadGame.prototype = {
   },
 
   create: function () {
+    localStorage.setItem('hat', false)
+    localStorage.setItem('key', false)
     this.game.state.start('GameMananger', true, false)
   }
 }

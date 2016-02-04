@@ -48,7 +48,7 @@ gardenLevel.prototype = {
     this.objConstructor.createDoor(10, 4) // out
     this.objConstructor.createDoor(14, 18) // houseDoor
 
-    this.objConstructor.createRectangle(32, 448, 160, 160)
+    this.objConstructor.createRectangle(1, 14, 5, 5)
 
     this.player.create()
     this.player.setPosition(14, 17)

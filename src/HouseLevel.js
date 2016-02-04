@@ -1,4 +1,4 @@
-/* global Phaser, Player, ObjectsConstructor, TextWriter*/
+/* global Phaser, Player, ObjectsConstructor, TextWriter, localStorage*/
 var houseLevel = function (game) {
   this.houseMap = null
   this.layer = null
@@ -55,10 +55,10 @@ houseLevel.prototype = {
     this.objConstructor.createLock(3, 12, 1, 'sarah') // doorSarah
     this.objConstructor.createDoor(9, 2) // out
 
-    this.objConstructor.createRectangle(0, 64, 96, 224) // smalRect 0
-    this.objConstructor.createRectangle(96, 64, 544, 352) // bigRect 1
-    this.objConstructor.createRectangle(96, 416, 32, 32)  // 32Rect 2
-    this.objConstructor.createRectangle(320, 416, 320, 32) // theOtherRect 3
+    this.objConstructor.createRectangle(0, 2, 3, 7) // smalRect 0
+    this.objConstructor.createRectangle(3, 2, 17, 11) // bigRect 1
+    this.objConstructor.createRectangle(3, 13, 1, 1)  // 32Rect 2
+    this.objConstructor.createRectangle(10, 13, 10, 1) // theOtherRect 3
 
     this.player.create()
     this.player.setPosition(8, 17)
@@ -122,6 +122,7 @@ houseLevel.prototype = {
         var object = this.objectP[k].name
         if (object === 'hat') {
           player.loadTexture('playerWithHat')
+          localStorage.setItem('hat', true)
         } else if (object === 'bag') {
           this.quest ++
           player.playerVelocity -= 50

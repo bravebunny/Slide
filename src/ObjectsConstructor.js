@@ -50,7 +50,7 @@ ObjectsConstructor.prototype = {
   createRectangle: function (x, y, width, height) {
     var graphic = this.game.add.graphics(0, 0)
     graphic.beginFill(0x363636)
-    graphic.drawRect(x, y, width, height)
+    graphic.drawRect(x * 32, y * 32, width * 32, height * 32)
     this.lvl.rectangle.push(graphic)
   },
 
