@@ -83,6 +83,8 @@ gardenLevel.prototype = {
           for (var i = 0; i < this.rectangle.length; i++) {
             this.game.add.tween(this.rectangle[i]).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0) // black rectangle
           }
+        } else if (this.lock[j].name === 'out') {
+          this.game.state.start('GameMananger', true, false, 3)
         }
         this.lock[j].destroy()
         this.door[j].destroy()
@@ -108,13 +110,7 @@ gardenLevel.prototype = {
       this.quest = 0
       this.textWriter.addText('Lets move on', 100)
       this.textSequence()
-      this.objConstructor.createLock(10, 4, 0) // doorOut
-    }
-  },
-
-  collide: function (object) {
-    if (this.game.physics.arcade.collide(object, [this.layer[1], this.layer[2]])) {
-      this.player.playerMoving = false
+      this.objConstructor.createLock(10, 4, 0, 'out') // doorOut
     }
   },
 

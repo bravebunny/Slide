@@ -146,11 +146,5 @@ houseLevel.prototype = {
     }
   },
 
-  collide: function (object) {
-    if (this.game.physics.arcade.collide(object, [this.layer[1], this.layer[2]])) {
-      this.player.playerMoving = false
-    }
-  },
-
   render: function () {}
 }

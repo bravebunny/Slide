@@ -25,7 +25,7 @@ Player.prototype = {
 
   update: function () {
     if (this.playerCanMove) {
-      this.lvl.collide(this.spriteMain)
+      this.collide()
 
       if (this.game.physics.arcade.collide(this.lvl.door, this.spriteMain)) {
         this.playerMoving = false
@@ -79,6 +79,12 @@ Player.prototype = {
 
   interact: function () {
     this.lvl.overlapObjects(this.spriteMain)
+  },
+
+  collide: function () {
+    if (this.game.physics.arcade.collide(this.spriteMain, [this.lvl.layer[1], this.lvl.layer[2]])) {
+      this.playerMoving = false
+    }
   },
 
   render: function (info) {}
