@@ -115,9 +115,12 @@ hospiceLevel.prototype = {
     if (this.quest === 3 && this.auxOneFinal) {
       this.auxOneFinal = false
       this.textWriter.addText('I need to get out of here', 100)
-      this.textWriter.addText('Sarah?!', 100)
+      this.game.time.events.add(Phaser.Timer.SECOND * 7, function () {
+        this.textWriter.addText('Sarah?!', 100)
+        this.textSequence()
+      }, this)
       this.textSequence()
-      this.game.time.events.add(Phaser.Timer.SECOND * 5, function () { this.game.state.start('GameMananger', true, false, 1) }, this)
+      this.game.time.events.add(Phaser.Timer.SECOND * 8.5, function () { this.game.state.start('GameMananger', true, false, 1) }, this)
     }
   },
 

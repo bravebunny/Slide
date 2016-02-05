@@ -64,11 +64,12 @@ houseLevel.prototype = {
     this.player.setPosition(8, 17)
 
     this.textWriter.addText('What a stange dream')
-    this.textWriter.addText("5:32 am.. let's take a walk")
+    this.textWriter.addText("5:32 am.. I can't sleep anymore")
+    this.textWriter.addText("Let's take a walk")
     this.textWriter.addText('Better drink my coffee and get my bag first')
     this.textSequence()
 
-    this.game.time.events.add(Phaser.Timer.SECOND * 6, function () { this.player.playerCanMove = true }, this)
+    this.game.time.events.add(Phaser.Timer.SECOND * 8, function () { this.player.playerCanMove = true }, this)
   },
 
   textSequence: function (specific) {
